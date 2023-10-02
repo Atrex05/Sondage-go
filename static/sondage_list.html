@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des Sondages</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <script>
+        function redirectTo(path) {
+            window.location.href = path;
+        }
+    </script>
+</head>
+<body>
+    <h1>Liste des Sondages</h1>
+
+    <ul id="sondage-list">
+        {{range .}}
+            <li id="sondage-item">
+                <a id="sondage-link" href="/sondage/{{.ID}}">{{.Name}}</a>
+                <p id="sondage-description">{{.Description}}</p>
+                <p id="creation-date">{{.Creation_date}}</p>
+                <p id="expiration-date">{{.Expiration_date}}</p>
+            </li>
+        {{end}}
+    </ul>
+    <button id="back-home" class = "button" onclick="redirectTo('/')">Retour à l'accueil</button>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sondage</title>
+    <link rel="stylesheet" type="text/css" href="../styles.css"> 
+    <script>
+        function redirectTo(path) {
+            window.location.href = path;
+        }
+    </script>
+</head>
+<body>
+    <h1>Sondage</h1>
+
+    <form id="sondage" action="" method="POST">
+        <h2>{{.Titre}}</h2>
+        <label for="choix1">
+            <input type="radio" id="choix1" name="choix" value="1"> {{.Choix1}}
+        </label>
+        <label for="choix2">
+            <input type="radio" id="choix2" name="choix" value="2"> {{.Choix2}}
+        </label>
+        <label for="choix3">
+            {{if ge .ChoiceCount 3}}
+                <input type="radio" id="choix3" name="choix" value="3"> {{.Choix3}}
+            {{end}}
+        </label>
+        <label for="choix4">
+            {{if ge .ChoiceCount 4}}
+                <input type="radio" id="choix4" name="choix" value="4"> {{.Choix4}}
+            {{end}}
+        </label>
+        <input type="submit" value="Soumettre">
+    </form>
+</br>
+    <div id="error-vote" style="color: red; text-align: center;">
+        {{.Error}}
+    </div>
+    <button id="redirect-resulsts" class = "button" onclick="redirectToResults()">Résultats</button>
+    <button id="back-home" class = "button" onclick="redirectTo('/')">Retour à l'accueil</button>
+    {{if .IsUser}}
+        <button id="deleteButton" class = "button">Supprimer le sondage</button>
+    {{end}}
+    <script>
+        function redirectToResults() {
+            var chemin = window.location.pathname;
+            var index = chemin.split('/').pop();
+
+            redirectTo('/sondage_results/' + index);
+        }
+        document.getElementById("deleteButton").addEventListener("click", function() {
+        var chemin = window.location.pathname;
+        var index = chemin.split('/').pop();
+
+        fetch("/delete_sondage", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "index=" + index
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return response.text();
+        })
+        .then(() => {
+            window.location.href = "/";
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+    </script>
+</body>
+</html>

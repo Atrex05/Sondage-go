@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <script>
+        function redirectTo(path) {
+            window.location.href = path;
+        }
+    </script>
+</head>
+<body>
+    <h1>Inscription</h1>
+
+    <form action="/signup" method="POST">
+        <label for="username">Nom d'utilisateur :</label>
+        <input type="text" id="username" name="username"><br><br>
+
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password"><br><br>
+        
+        <label for="Mail">Adresse Mail :</label>
+        <input type="text" id="mail" name="mail"><br><br>
+
+
+        <input type="submit" value="S'inscrire">
+    </form>
+</br>
+    <div id="error-signup" style="color: red; text-align: center;">
+        {{.}}
+    </div>
+    <button id="back-home" class = "button" onclick="redirectTo('/')">Retour à l'accueil</button>
+</body>
+</html>

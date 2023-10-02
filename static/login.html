@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <script>
+        function redirectTo(path) {
+            window.location.href = path;
+        }
+    </script>
+</head>
+<body>
+    <h1>Connexion</h1>
+    <form action="/login" method="POST">
+        <label for="username">Nom d'utilisateur:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <a href="/reset_password">Mot de passe oublié</a>
+        
+        <input type="submit" value="Se connecter">
+    </form>
+</br>
+    <div id="error-message" style="color: red; text-align: center;">
+        {{.}}
+    </div>
+    <button id="back-home" class = "button" onclick="redirectTo('/')">Retour à l'accueil</button>
+</body>
+</html>

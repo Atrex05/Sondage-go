@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Création de Sondage</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <script>
+        function redirectTo(path) {
+            window.location.href = path;
+        }
+
+        function addChoice() {
+            const choicesContainer = document.getElementById('choices-container');
+            const choiceCount = choicesContainer.querySelectorAll('input[name^="choix"]').length;
+
+            if (choiceCount < 4) {
+                const newChoiceInput = document.createElement('input');
+                newChoiceInput.type = 'text';
+                newChoiceInput.name = 'choix' + (choiceCount + 1);
+                newChoiceInput.required = true;
+
+                const newChoiceLabel = document.createElement('label');
+                newChoiceLabel.textContent = 'Choix ' + (choiceCount + 1);
+
+                choicesContainer.appendChild(newChoiceLabel);
+                choicesContainer.appendChild(newChoiceInput);
+                choicesContainer.appendChild(document.createElement('br'));
+            }
+            updateChoiceCount();
+        }
+
+        function removeChoice() {
+            const choicesContainer = document.getElementById('choices-container');
+            const choiceCount = choicesContainer.querySelectorAll('input[name^="choix"]').length;
+
+            if (choiceCount > 2) {
+                choicesContainer.removeChild(choicesContainer.lastChild);
+                choicesContainer.removeChild(choicesContainer.lastChild);
+                choicesContainer.removeChild(choicesContainer.lastChild);
+            }
+            updateChoiceCount();
+        }
+        function updateChoiceCount() {
+        const choiceCount = document.getElementById('choices-container').querySelectorAll('input[name^="choix"]').length;
+
+        fetch('/update_choice_count', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ choiceCount: choiceCount }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erreur lors de l\'envoi de la valeur choiceCount au serveur');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+    </script>
+</head>
+<body>
+    <h1>Création de Sondage</h1>
+
+    <form action="/create_sondage" method="POST">
+        <label for="titre">Titre du Sondage</label>
+        <input type="text" id="titre" name="titre" required><br><br>
+
+        <label for="description">Description du Sondage</label>
+        <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+
+        <div id="choices-container">
+            <label for="choix1">Choix 1</label>
+            <input type="text" id="choix1" name="choix1" required><br><br>
+
+            <label for="choix2">Choix 2</label>
+            <input type="text" id="choix2" name="choix2" required><br><br>
+        </div>
+    
+        <button type="button" onclick="addChoice()">Plus</button>
+        <button type="button" onclick="removeChoice()">Moins</button><br><br>
+
+        <label for="duree">Durée du Sondage</label>
+        <input type="range" min="30" max="720" value="240" class="slider" id="duree">
+        <span id="duree-value-hours">4</span> heures & <span id="duree-value-minutes">0</span> minutes<br><br>
+        <input type="hidden" id="duree-value-hours-sub" name="duree-hours" value="0">
+        <input type="hidden" id="duree-value-minutes-sub" name="duree-minutes" value="0">
+
+        <input type="submit" value="Créer Sondage">
+    </form>
+    </br>
+    <div id="error-msg" style="color: red; text-align: center;">
+        {{.}}
+    </div>
+    <button id="back-home" class="button" onclick="redirectTo('/')">Retour à l'accueil</button>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var slider = document.getElementById('duree');
+            var outputHours = document.getElementById('duree-value-hours');
+            var outputMinutes = document.getElementById('duree-value-minutes');
+            var outputHoursSub = document.getElementById('duree-value-hours-sub');
+            var outputMinutesSub = document.getElementById('duree-value-minutes-sub');
+
+            slider.addEventListener('input', function() {
+                var totalMinutes = parseInt(this.value);
+                var hours = Math.floor(totalMinutes / 60);
+                var minutes = totalMinutes % 60;
+            
+                outputHours.textContent = hours;
+                outputMinutes.textContent = minutes;
+                outputHoursSub.value = hours;
+                outputMinutesSub.value = minutes;
+            });
+        });
+    </script>
+</body>
+</html>
+

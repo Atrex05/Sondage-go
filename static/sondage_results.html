@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Résultats</title>
+    <link rel="stylesheet" type="text/css" href="../styles.css">
+</head>
+<body>
+    <h1>Résultats</h1>
+    <div id="resultats" style="text-align: center;">
+        <p>{{.Vote1}} : <span id="nb1">0</span></p>
+        <p>{{.Vote2}} : <span id="nb2">0</span></p>
+        {{if ge .ChoiceCount 3}}
+            <p>{{.Vote3}} : <span id="nb3">0</span></p>
+        {{end}}
+        {{if ge .ChoiceCount 4}}
+            <p>{{.Vote4}} : <span id="nb4">0</span></p>
+        {{end}}
+    </div>
+    <button id="back-home" class="button" onclick="redirectTo('/')">Retour à l'accueil</button>
+
+    <script>
+        function redirectTo(path) {
+            window.location.href = path;
+        }
+
+        const urlPath = window.location.pathname;
+        const sondageID = urlPath.split('/').pop();
+
+        const socket = new WebSocket(`ws://${window.location.host}/ws?sondageID=${sondageID}`);
+
+        socket.addEventListener("open", function (event) {
+            console.log("Connexion WebSocket établie.");
+        });
+
+        socket.addEventListener("message", function (event) {
+            console.log("Message Websocket reçu:", event.data);
+            const resultData = JSON.parse(event.data);
+
+            document.getElementById("nb1").textContent = resultData.Choix1;
+            document.getElementById("nb2").textContent = resultData.Choix2;
+            document.getElementById("nb3").textContent = resultData.Choix3;
+            document.getElementById("nb4").textContent = resultData.Choix4;
+        });
+    </script>
+</body>
+</html>
