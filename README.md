@@ -1,6 +1,6 @@
 # Squelette d'application : Sondage
 
-![screenshot](screenshot/screen_home.png)
+![screenshot](screenshot/gif.gif)
 
 Ce site a été créé afin de prendre en main les différentes technologies qu'il constitue. Parmis celles-ci: HTML / CSS / JS et GoLang.<br/>
 L'objectif était également de pouvoir prendre en main différentes libraires en GoLang parmis les plus importantes:
