@@ -54,4 +54,9 @@ Ensuite il faudra alors créer une "copie" de la base de donnée utiliser, il fa
 ### Lancer le site
 
 Pour faire tourner le programme il suffit de lancer la commande `run *.go` en étant dans le dossier src. On peut alors se connecter au site via l'adresse localhost (ou adresse IP hebergeant le programme) sur le port 8080
+
+
+### Contributeur
+
+Ce programme à été réalisé en collaboration avec @Atrex05
 (http://localhost:8080/)
