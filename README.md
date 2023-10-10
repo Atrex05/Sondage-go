@@ -51,4 +51,4 @@ Next, you'll need to create a "copy" of the database to use. Install PostgreSQL 
 `CREATE TABLE sondages (id SERIAL PRIMARY KEY, titre VARCHAR(100), description TEXT, choix1 VARCHAR(100), choix2 VARCHAR(100), choix3 VARCHAR(100), choix4 VARCHAR(100), date_creation TIMESTAMP, date_expiration TIMESTAMP, nb_choices INT, createur_id INT, FOREIGN KEY (createur_id) REFERENCES users(id));`
 
 ### Launching the Site
-To run the program, simply execute the run *.go command while in the "src" directory. You can then access the site via the localhost address (or the IP address hosting the program) on port 8080 (http://localhost:8080/).
+To run the program, simply execute the "go run ." command while in the "src" directory. You can then access the site via the localhost address (or the IP address hosting the program) on port 8080 (http://localhost:8080/).
