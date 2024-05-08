@@ -2,7 +2,7 @@
 
 ![screenshot](screenshot/gif.gif)
 
-This website was created to get hands-on experience with the various technologies it comprises, including HTML, CSS, JS, and GoLang. The objective was also to familiarize ourselves with different GoLang libraries, among the most important ones:
+This website was created to get hands-on experience with the various technologies it comprises, including HTML, CSS, JS, and Golang. The objective was also to familiarize ourselves with different Golang libraries, among the most important ones:
 
 - database/sql
 - net/http
