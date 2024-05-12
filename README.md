@@ -52,3 +52,8 @@ Next, you'll need to create a "copy" of the database to use. Install PostgreSQL 
 
 ### Launching the Site
 To run the program, simply execute the "go run ." command while in the "src" directory. You can then access the site via the localhost address (or the IP address hosting the program) on port 8080 (http://localhost:8080/).
+
+
+## Credits
+
+This website was creating in 10 days with the help of [Yumikoood](https://github.com/YumikoooD) it was our first time using these technologies (golang/websockets) and we learned a lot from this project
